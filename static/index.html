@@ -1,707 +1,707 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Sunlit Browser</title>
-    <link rel="icon" href="https://raw.githubusercontent.com/EXVYS/Image-host/main/logo2.png" />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+   <title>Sunlit Browser</title>
+   <link rel="icon" href="https://raw.githubusercontent.com/EXVYS/Image-host/main/logo2.png" />
+   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+   <style>
+       * {
+           margin: 0;
+           padding: 0;
+           box-sizing: border-box;
+       }
 
-        :root {
-            --bg-primary: #0a0a0a;
-            --bg-secondary: #141414;
-            --bg-tertiary: #1a1a1a;
-            --bg-input: #242424;
-            --text-primary: #ffffff;
-            --text-secondary: #a0a0a0;
-            --text-muted: #606060;
-            --accent: #ffffff;
-            --border: #2a2a2a;
-        }
+       :root {
+           --bg-primary: #0a0a0a;
+           --bg-secondary: #141414;
+           --bg-tertiary: #1a1a1a;
+           --bg-input: #242424;
+           --text-primary: #ffffff;
+           --text-secondary: #a0a0a0;
+           --text-muted: #606060;
+           --accent: #ffffff;
+           --border: #2a2a2a;
+       }
 
-        .light {
-            --bg-primary: #ffffff;
-            --bg-secondary: #f5f5f5;
-            --bg-tertiary: #eeeeee;
-            --bg-input: #e0e0e0;
-            --text-primary: #0a0a0a;
-            --text-secondary: #505050;
-            --text-muted: #909090;
-            --accent: #0a0a0a;
-            --border: #d0d0d0;
-        }
+       .light {
+           --bg-primary: #ffffff;
+           --bg-secondary: #f5f5f5;
+           --bg-tertiary: #eeeeee;
+           --bg-input: #e0e0e0;
+           --text-primary: #0a0a0a;
+           --text-secondary: #505050;
+           --text-muted: #909090;
+           --accent: #0a0a0a;
+           --border: #d0d0d0;
+       }
 
-        body, html, #app {
-            font-family: "Inter", system-ui, sans-serif;
-            width: 100vw;
-            height: 100vh;
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            overflow: hidden;
-            transition: background-color 0.3s ease, color 0.3s ease;
-        }
+       body, html, #app {
+           font-family: "Inter", system-ui, sans-serif;
+           width: 100vw;
+           height: 100vh;
+           background-color: var(--bg-primary);
+           color: var(--text-primary);
+           overflow: hidden;
+           transition: background-color 0.3s ease, color 0.3s ease;
+       }
 
-        .top-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 60px;
-            background: var(--bg-secondary);
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            padding: 0 16px;
-            gap: 12px;
-            z-index: 100;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-        }
+       .top-bar {
+           position: fixed;
+           top: 0;
+           left: 0;
+           right: 0;
+           height: 60px;
+           background: var(--bg-secondary);
+           border-bottom: 1px solid var(--border);
+           display: flex;
+           align-items: center;
+           padding: 0 16px;
+           gap: 12px;
+           z-index: 100;
+           transition: transform 0.3s ease, background-color 0.3s ease;
+       }
 
-        .top-bar.hidden {
-            transform: translateY(-100%);
-        }
+       .top-bar.hidden {
+           transform: translateY(-100%);
+       }
 
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-            font-size: 1.1rem;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
+       .logo {
+           display: flex;
+           align-items: center;
+           gap: 10px;
+           font-weight: 600;
+           font-size: 1.1rem;
+           color: var(--text-primary);
+           text-decoration: none;
+       }
 
-        .logo img {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-        }
+       .logo img {
+           width: 32px;
+           height: 32px;
+           border-radius: 8px;
+       }
 
-        .nav-controls {
-            display: flex;
-            gap: 4px;
-        }
+       .nav-controls {
+           display: flex;
+           gap: 4px;
+       }
 
-        .nav-btn {
-            width: 34px;
-            height: 34px;
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
+       .nav-btn {
+           width: 34px;
+           height: 34px;
+           border: none;
+           background: transparent;
+           color: var(--text-secondary);
+           border-radius: 6px;
+           cursor: pointer;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           transition: all 0.2s ease;
+       }
 
-        .nav-btn:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
+       .nav-btn:hover {
+           background: var(--bg-tertiary);
+           color: var(--text-primary);
+       }
 
-        .nav-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
+       .nav-btn svg {
+           width: 18px;
+           height: 18px;
+           fill: currentColor;
+       }
 
-        .address-bar-container {
-            flex: 1;
-            max-width: 600px;
-            margin: 0 auto;
-        }
+       .address-bar-container {
+           flex: 1;
+           max-width: 600px;
+           margin: 0 auto;
+       }
 
-        .address-bar {
-            width: 100%;
-            height: 38px;
-            background: var(--bg-input);
-            border: 1px solid var(--border);
-            border-radius: 19px;
-            display: flex;
-            align-items: center;
-            padding: 0 14px;
-            gap: 10px;
-            transition: all 0.2s ease;
-        }
+       .address-bar {
+           width: 100%;
+           height: 38px;
+           background: var(--bg-input);
+           border: 1px solid var(--border);
+           border-radius: 19px;
+           display: flex;
+           align-items: center;
+           padding: 0 14px;
+           gap: 10px;
+           transition: all 0.2s ease;
+       }
 
-        .address-bar:focus-within {
-            border-color: var(--text-secondary);
-        }
+       .address-bar:focus-within {
+           border-color: var(--text-secondary);
+       }
 
-        .address-bar svg {
-            width: 16px;
-            height: 16px;
-            fill: var(--text-muted);
-        }
+       .address-bar svg {
+           width: 16px;
+           height: 16px;
+           fill: var(--text-muted);
+       }
 
-        .address-bar input {
-            flex: 1;
-            background: transparent;
-            border: none;
-            outline: none;
-            color: var(--text-primary);
-            font-size: 0.9rem;
-            font-family: inherit;
-        }
+       .address-bar input {
+           flex: 1;
+           background: transparent;
+           border: none;
+           outline: none;
+           color: var(--text-primary);
+           font-size: 0.9rem;
+           font-family: inherit;
+       }
 
-        .address-bar input::placeholder {
-            color: var(--text-muted);
-        }
+       .address-bar input::placeholder {
+           color: var(--text-muted);
+       }
 
-        .tabs-container {
-            display: flex;
-            gap: 6px;
-            margin-left: 12px;
-            overflow-x: auto;
-            scrollbar-width: none;
-        }
+       .tabs-container {
+           display: flex;
+           gap: 6px;
+           margin-left: 12px;
+           overflow-x: auto;
+           scrollbar-width: none;
+       }
 
-        .tabs-container::-webkit-scrollbar {
-            display: none;
-        }
+       .tabs-container::-webkit-scrollbar {
+           display: none;
+       }
 
-        .tab {
-            height: 34px;
-            padding: 0 12px;
-            background: var(--bg-tertiary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            min-width: 120px;
-            max-width: 180px;
-        }
+       .tab {
+           height: 34px;
+           padding: 0 12px;
+           background: var(--bg-tertiary);
+           border: 1px solid var(--border);
+           border-radius: 6px;
+           display: flex;
+           align-items: center;
+           gap: 8px;
+           cursor: pointer;
+           transition: all 0.2s ease;
+           min-width: 120px;
+           max-width: 180px;
+       }
 
-        .tab:hover {
-            background: var(--bg-input);
-        }
+       .tab:hover {
+           background: var(--bg-input);
+       }
 
-        .tab.active {
-            background: var(--bg-input);
-            border-color: var(--text-secondary);
-        }
+       .tab.active {
+           background: var(--bg-input);
+           border-color: var(--text-secondary);
+       }
 
-        .tab-title {
-            flex: 1;
-            font-size: 0.8rem;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            color: var(--text-secondary);
-        }
+       .tab-title {
+           flex: 1;
+           font-size: 0.8rem;
+           white-space: nowrap;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           color: var(--text-secondary);
+       }
 
-        .tab.active .tab-title {
-            color: var(--text-primary);
-        }
+       .tab.active .tab-title {
+           color: var(--text-primary);
+       }
 
-        .tab-close {
-            width: 14px;
-            height: 14px;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transition: all 0.2s ease;
-        }
+       .tab-close {
+           width: 14px;
+           height: 14px;
+           border-radius: 3px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           opacity: 0;
+           transition: all 0.2s ease;
+       }
 
-        .tab:hover .tab-close {
-            opacity: 1;
-        }
+       .tab:hover .tab-close {
+           opacity: 1;
+       }
 
-        .tab-close:hover {
-            background: var(--border);
-        }
+       .tab-close:hover {
+           background: var(--border);
+       }
 
-        .tab-close svg {
-            width: 10px;
-            height: 10px;
-            fill: var(--text-secondary);
-        }
+       .tab-close svg {
+           width: 10px;
+           height: 10px;
+           fill: var(--text-secondary);
+       }
 
-        .new-tab-btn {
-            width: 34px;
-            height: 34px;
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-            flex-shrink: 0;
-        }
+       .new-tab-btn {
+           width: 34px;
+           height: 34px;
+           border: none;
+           background: transparent;
+           color: var(--text-secondary);
+           border-radius: 6px;
+           cursor: pointer;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           transition: all 0.2s ease;
+           flex-shrink: 0;
+       }
 
-        .new-tab-btn:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
+       .new-tab-btn:hover {
+           background: var(--bg-tertiary);
+           color: var(--text-primary);
+       }
 
-        .new-tab-btn svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
+       .new-tab-btn svg {
+           width: 18px;
+           height: 18px;
+           fill: currentColor;
+       }
 
-        .theme-toggle {
-            width: 34px;
-            height: 34px;
-            border: none;
-            background: transparent;
-            color: var(--text-secondary);
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.2s ease;
-        }
+       .theme-toggle {
+           width: 34px;
+           height: 34px;
+           border: none;
+           background: transparent;
+           color: var(--text-secondary);
+           border-radius: 6px;
+           cursor: pointer;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           transition: all 0.2s ease;
+       }
 
-        .theme-toggle:hover {
-            background: var(--bg-tertiary);
-            color: var(--text-primary);
-        }
+       .theme-toggle:hover {
+           background: var(--bg-tertiary);
+           color: var(--text-primary);
+       }
 
-        .theme-toggle svg {
-            width: 18px;
-            height: 18px;
-            fill: currentColor;
-        }
+       .theme-toggle svg {
+           width: 18px;
+           height: 18px;
+           fill: currentColor;
+       }
 
-        .hide-toggle {
-            position: fixed;
-            top: 70px;
-            right: 16px;
-            width: 28px;
-            height: 28px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 6px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 101;
-            opacity: 0;
-            transition: all 0.2s ease;
-            color: var(--text-secondary);
-        }
+       .hide-toggle {
+           position: fixed;
+           top: 70px;
+           right: 16px;
+           width: 28px;
+           height: 28px;
+           background: var(--bg-secondary);
+           border: 1px solid var(--border);
+           border-radius: 6px;
+           cursor: pointer;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           z-index: 101;
+           opacity: 0;
+           transition: all 0.2s ease;
+           color: var(--text-secondary);
+       }
 
-        .top-bar:hover ~ .hide-toggle,
-        .hide-toggle:hover {
-            opacity: 1;
-        }
+       .top-bar:hover ~ .hide-toggle,
+       .hide-toggle:hover {
+           opacity: 1;
+       }
 
-        .hide-toggle svg {
-            width: 14px;
-            height: 14px;
-            fill: currentColor;
-            transition: transform 0.3s ease;
-        }
+       .hide-toggle svg {
+           width: 14px;
+           height: 14px;
+           fill: currentColor;
+           transition: transform 0.3s ease;
+       }
 
-        .top-bar.hidden ~ .hide-toggle {
-            opacity: 1;
-            top: 16px;
-        }
+       .top-bar.hidden ~ .hide-toggle {
+           opacity: 1;
+           top: 16px;
+       }
 
-        .top-bar.hidden ~ .hide-toggle svg {
-            transform: rotate(180deg);
-        }
+       .top-bar.hidden ~ .hide-toggle svg {
+           transform: rotate(180deg);
+       }
 
-        .show-bar-trigger {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            z-index: 99;
-            cursor: pointer;
-        }
+       .show-bar-trigger {
+           position: fixed;
+           top: 0;
+           left: 0;
+           right: 0;
+           height: 4px;
+           z-index: 99;
+           cursor: pointer;
+       }
 
-        .content-area {
-            position: fixed;
-            top: 60px;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 10;
-            transition: top 0.3s ease;
-        }
+       .content-area {
+           position: fixed;
+           top: 60px;
+           left: 0;
+           right: 0;
+           bottom: 0;
+           z-index: 10;
+           transition: top 0.3s ease;
+       }
 
-        .top-bar.hidden ~ .content-area {
-            top: 0;
-        }
+       .top-bar.hidden ~ .content-area {
+           top: 0;
+       }
 
-        .homescreen {
-            width: 100%;
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 32px;
-            padding: 20px;
-        }
+       .homescreen {
+           width: 100%;
+           height: 100%;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           gap: 32px;
+           padding: 20px;
+       }
 
-        .homescreen-logo {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
-        }
+       .homescreen-logo {
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           gap: 16px;
+       }
 
-        .homescreen-logo img {
-            width: 80px;
-            height: 80px;
-            border-radius: 20px;
-        }
+       .homescreen-logo img {
+           width: 80px;
+           height: 80px;
+           border-radius: 20px;
+       }
 
-        .homescreen-logo h1 {
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--text-primary);
-        }
+       .homescreen-logo h1 {
+           font-size: 2rem;
+           font-weight: 600;
+           color: var(--text-primary);
+       }
 
-        .homescreen-search {
-            width: 100%;
-            max-width: 580px;
-        }
+       .homescreen-search {
+           width: 100%;
+           max-width: 580px;
+       }
 
-        .homescreen-search .address-bar {
-            height: 48px;
-            border-radius: 24px;
-            padding: 0 20px;
-        }
+       .homescreen-search .address-bar {
+           height: 48px;
+           border-radius: 24px;
+           padding: 0 20px;
+       }
 
-        .homescreen-search .address-bar svg {
-            width: 20px;
-            height: 20px;
-        }
+       .homescreen-search .address-bar svg {
+           width: 20px;
+           height: 20px;
+       }
 
-        .homescreen-search .address-bar input {
-            font-size: 1rem;
-        }
+       .homescreen-search .address-bar input {
+           font-size: 1rem;
+       }
 
-        .shortcuts {
-            display: flex;
-            gap: 16px;
-            flex-wrap: wrap;
-            justify-content: center;
-            max-width: 600px;
-        }
+       .shortcuts {
+           display: flex;
+           gap: 16px;
+           flex-wrap: wrap;
+           justify-content: center;
+           max-width: 600px;
+       }
 
-        .shortcut {
-            width: 100px;
-            height: 100px;
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            text-decoration: none;
-        }
+       .shortcut {
+           width: 100px;
+           height: 100px;
+           background: var(--bg-secondary);
+           border: 1px solid var(--border);
+           border-radius: 12px;
+           display: flex;
+           flex-direction: column;
+           align-items: center;
+           justify-content: center;
+           gap: 8px;
+           cursor: pointer;
+           transition: all 0.2s ease;
+           text-decoration: none;
+       }
 
-        .shortcut:hover {
-            background: var(--bg-tertiary);
-            transform: translateY(-2px);
-        }
+       .shortcut:hover {
+           background: var(--bg-tertiary);
+           transform: translateY(-2px);
+       }
 
-        .shortcut-icon {
-            width: 40px;
-            height: 40px;
-            background: var(--bg-tertiary);
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-        }
+       .shortcut-icon {
+           width: 40px;
+           height: 40px;
+           background: var(--bg-tertiary);
+           border-radius: 10px;
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           font-size: 1.2rem;
+       }
 
-        .shortcut-title {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            max-width: 80px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-        }
+       .shortcut-title {
+           font-size: 0.75rem;
+           color: var(--text-secondary);
+           max-width: 80px;
+           overflow: hidden;
+           text-overflow: ellipsis;
+           white-space: nowrap;
+       }
 
-        #app {
-            width: 100%;
-            height: 100%;
-        }
+       #app {
+           width: 100%;
+           height: 100%;
+       }
 
-        @media (max-width: 768px) {
-            .top-bar {
-                padding: 0 12px;
-            }
-            
-            .tabs-container {
-                display: none;
-            }
-        }
-    </style>
+       @media (max-width: 768px) {
+           .top-bar {
+               padding: 0 12px;
+           }
+           
+           .tabs-container {
+               display: none;
+           }
+       }
+   </style>
 </head>
 <body>
-    <div class="top-bar" id="topBar">
-        <a href="#" class="logo" onclick="showHomescreen()">
-            <img src="https://raw.githubusercontent.com/EXVYS/Image-host/main/logo2.png" alt="Sunlit" />
-            <span>Sunlit</span>
-        </a>
+   <div class="top-bar" id="topBar">
+       <a href="#" class="logo" onclick="showHomescreen()">
+           <img src="https://raw.githubusercontent.com/EXVYS/Image-host/main/logo2.png" alt="Sunlit" />
+           <span>Sunlit</span>
+       </a>
 
-        <div class="nav-controls">
-            <button class="nav-btn" onclick="goBack()" title="Back">
-                <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
-            </button>
-            <button class="nav-btn" onclick="goForward()" title="Forward">
-                <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
-            </button>
-            <button class="nav-btn" onclick="reload()" title="Refresh">
-                <svg viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
-            </button>
-        </div>
+       <div class="nav-controls">
+           <button class="nav-btn" onclick="goBack()" title="Back">
+               <svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+           </button>
+           <button class="nav-btn" onclick="goForward()" title="Forward">
+               <svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+           </button>
+           <button class="nav-btn" onclick="reload()" title="Refresh">
+               <svg viewBox="0 0 24 24"><path d="M23 4v6h-6M1 20v-6h6M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15"/></svg>
+           </button>
+       </div>
 
-        <div class="address-bar-container">
-            <div class="address-bar">
-                <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
-                <input type="text" placeholder="Search or enter address" id="urlInput" onkeypress="handleUrl(event)" />
-            </div>
-        </div>
+       <div class="address-bar-container">
+           <div class="address-bar">
+               <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+               <input type="text" placeholder="Search or enter address" id="urlInput" onkeypress="handleUrl(event)" />
+           </div>
+       </div>
 
-        <div class="tabs-container" id="tabsContainer">
-            <div class="tab active" onclick="switchTab(this, 0)">
-                <span class="tab-title">Home</span>
-                <div class="tab-close" onclick="closeTab(event, this)">
-                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                </div>
-            </div>
-            <button class="new-tab-btn" onclick="newTab()" title="New Tab">
-                <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
-            </button>
-        </div>
+       <div class="tabs-container" id="tabsContainer">
+           <div class="tab active" onclick="switchTab(this, 0)">
+               <span class="tab-title">Home</span>
+               <div class="tab-close" onclick="closeTab(event, this)">
+                   <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+               </div>
+           </div>
+           <button class="new-tab-btn" onclick="newTab()" title="New Tab">
+               <svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg>
+           </button>
+       </div>
 
-        <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
-            <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
-        </button>
-    </div>
+       <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Theme">
+           <svg id="themeIcon" viewBox="0 0 24 24"><path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+       </button>
+   </div>
 
-    <button class="hide-toggle" id="hideToggle" onclick="toggleBar()" title="Toggle Top Bar">
-        <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
-    </button>
+   <button class="hide-toggle" id="hideToggle" onclick="toggleBar()" title="Toggle Top Bar">
+       <svg viewBox="0 0 24 24"><path d="M18 15l-6-6-6 6"/></svg>
+   </button>
 
-    <div class="show-bar-trigger" id="showBarTrigger" onclick="showBar()" style="display: none;"></div>
+   <div class="show-bar-trigger" id="showBarTrigger" onclick="showBar()" style="display: none;"></div>
 
-    <div class="content-area" id="contentArea">
-        <div class="homescreen" id="homescreen">
-            <div class="homescreen-logo">
-                <img src="https://raw.githubusercontent.com/EXVYS/Image-host/main/logo2.png" alt="Sunlit" />
-                <h1>Sunlit</h1>
-            </div>
-            <div class="homescreen-search">
-                <div class="address-bar">
-                    <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
-                    <input type="text" placeholder="Search or enter address" id="homeInput" onkeypress="handleHomeUrl(event)" />
-                </div>
-            </div>
-            <div class="shortcuts">
-                <a href="#" class="shortcut" onclick="navigate('https://google.com')">
-                    <div class="shortcut-icon">G</div>
-                    <span class="shortcut-title">Google</span>
-                </a>
-                <a href="#" class="shortcut" onclick="navigate('https://youtube.com')">
-                    <div class="shortcut-icon">Y</div>
-                    <span class="shortcut-title">YouTube</span>
-                </a>
-                <a href="#" class="shortcut" onclick="navigate('https://github.com')">
-                    <div class="shortcut-icon">GH</div>
-                    <span class="shortcut-title">GitHub</span>
-                </a>
-                <a href="#" class="shortcut" onclick="navigate('https://reddit.com')">
-                    <div class="shortcut-icon">R</div>
-                    <span class="shortcut-title">Reddit</span>
-                </a>
-            </div>
-        </div>
-        <div id="app" style="display: none;"></div>
-    </div>
+   <div class="content-area" id="contentArea">
+       <div class="homescreen" id="homescreen">
+           <div class="homescreen-logo">
+               <img src="https://raw.githubusercontent.com/EXVYS/Image-host/main/logo2.png" alt="Sunlit" />
+               <h1>Sunlit</h1>
+           </div>
+           <div class="homescreen-search">
+               <div class="address-bar">
+                   <svg viewBox="0 0 24 24"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+                   <input type="text" placeholder="Search or enter address" id="homeInput" onkeypress="handleHomeUrl(event)" />
+               </div>
+           </div>
+           <div class="shortcuts">
+               <a href="#" class="shortcut" onclick="navigate('https://google.com')">
+                   <div class="shortcut-icon">G</div>
+                   <span class="shortcut-title">Google</span>
+               </a>
+               <a href="#" class="shortcut" onclick="navigate('https://youtube.com')">
+                   <div class="shortcut-icon">Y</div>
+                   <span class="shortcut-title">YouTube</span>
+               </a>
+               <a href="#" class="shortcut" onclick="navigate('https://github.com')">
+                   <div class="shortcut-icon">GH</div>
+                   <span class="shortcut-title">GitHub</span>
+               </a>
+               <a href="#" class="shortcut" onclick="navigate('https://reddit.com')">
+                   <div class="shortcut-icon">R</div>
+                   <span class="shortcut-title">Reddit</span>
+               </a>
+           </div>
+       </div>
+       <div id="app" style="display: none;"></div>
+   </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/dreamland@0.0.25"></script>
-    <script src="/baremux/index.js"></script>
-    <script src="/scram/scramjet.all.js"></script>
-    <script src="config.js"></script>
-    <script src="store.js"></script>
+   <script src="https://cdn.jsdelivr.net/npm/dreamland@0.0.25"></script>
+   <script src="/baremux/index.js"></script>
+   <script src="/scram/scramjet.all.js"></script>
+   <script src="config.js"></script>
+   <script src="store.js"></script>
 
-    <script>
-        let isHidden = false;
-        let isDark = true;
-        let tabs = [{ title: 'Home', url: null }];
-        let activeTab = 0;
-        let tabCount = 1;
+   <script>
+       let isHidden = false;
+       let isDark = true;
+       let tabs = [{ title: 'Home', url: null }];
+       let activeTab = 0;
+       let tabCount = 1;
 
-        function toggleBar() {
-            isHidden = !isHidden;
-            const topBar = document.getElementById('topBar');
-            const showTrigger = document.getElementById('showBarTrigger');
-            
-            if (isHidden) {
-                topBar.classList.add('hidden');
-                showTrigger.style.display = 'block';
-            } else {
-                topBar.classList.remove('hidden');
-                showTrigger.style.display = 'none';
-            }
-        }
+       function toggleBar() {
+           isHidden = !isHidden;
+           const topBar = document.getElementById('topBar');
+           const showTrigger = document.getElementById('showBarTrigger');
+           
+           if (isHidden) {
+               topBar.classList.add('hidden');
+               showTrigger.style.display = 'block';
+           } else {
+               topBar.classList.remove('hidden');
+               showTrigger.style.display = 'none';
+           }
+       }
 
-        function showBar() {
-            if (isHidden) {
-                toggleBar();
-            }
-        }
+       function showBar() {
+           if (isHidden) {
+               toggleBar();
+           }
+       }
 
-        function toggleTheme() {
-            isDark = !isDark;
-            document.body.classList.toggle('light', !isDark);
-            const icon = document.getElementById('themeIcon');
-            if (isDark) {
-                icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>';
-            } else {
-                icon.innerHTML = '<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
-            }
-        }
+       function toggleTheme() {
+           isDark = !isDark;
+           document.body.classList.toggle('light', !isDark);
+           const icon = document.getElementById('themeIcon');
+           if (isDark) {
+               icon.innerHTML = '<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"/>';
+           } else {
+               icon.innerHTML = '<path d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"/>';
+           }
+       }
 
-        function handleUrl(e) {
-            if (e.key === 'Enter') {
-                const url = e.target.value;
-                navigate(url);
-                tabs[activeTab].url = url;
-                updateTabTitle(activeTab, url);
-            }
-        }
+       function handleUrl(e) {
+           if (e.key === 'Enter') {
+               const url = e.target.value;
+               navigate(url);
+               tabs[activeTab].url = url;
+               updateTabTitle(activeTab, url);
+           }
+       }
 
-        function handleHomeUrl(e) {
-            if (e.key === 'Enter') {
-                const url = e.target.value;
-                navigate(url);
-                newTabWithUrl(url);
-            }
-        }
+       function handleHomeUrl(e) {
+           if (e.key === 'Enter') {
+               const url = e.target.value;
+               navigate(url);
+               newTabWithUrl(url);
+           }
+       }
 
-        function navigate(url) {
-            if (!url.startsWith('http')) {
-                url = 'https://' + url;
-            }
-            
-            document.getElementById('homescreen').style.display = 'none';
-            document.getElementById('app').style.display = 'block';
-            document.getElementById('urlInput').value = url;
-            
-            // Your proxy code here
-            console.log('Navigating to:', url);
-        }
+       function navigate(url) {
+           if (!url.startsWith('http')) {
+               url = 'https://' + url;
+           }
+           
+           document.getElementById('homescreen').style.display = 'none';
+           document.getElementById('app').style.display = 'block';
+           document.getElementById('urlInput').value = url;
+           
+           // Your proxy code here
+           console.log('Navigating to:', url);
+       }
 
-        function showHomescreen() {
-            document.getElementById('homescreen').style.display = 'flex';
-            document.getElementById('app').style.display = 'none';
-            document.getElementById('urlInput').value = '';
-            tabs[activeTab].url = null;
-            updateTabTitle(activeTab, 'Home');
-        }
+       function showHomescreen() {
+           document.getElementById('homescreen').style.display = 'flex';
+           document.getElementById('app').style.display = 'none';
+           document.getElementById('urlInput').value = '';
+           tabs[activeTab].url = null;
+           updateTabTitle(activeTab, 'Home');
+       }
 
-        function newTab() {
-            tabCount++;
-            const container = document.getElementById('tabsContainer');
-            const newTab = document.createElement('div');
-            newTab.className = 'tab';
-            newTab.onclick = function() { switchTab(this, tabs.length); };
-            newTab.innerHTML = `
-                <span class="tab-title">New Tab</span>
-                <div class="tab-close" onclick="closeTab(event, this)">
-                    <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
-                </div>
-            `;
-            container.insertBefore(newTab, container.lastElementChild);
-            tabs.push({ title: 'New Tab', url: null });
-            switchTab(newTab, tabs.length - 1);
-        }
+       function newTab() {
+           tabCount++;
+           const container = document.getElementById('tabsContainer');
+           const newTab = document.createElement('div');
+           newTab.className = 'tab';
+           newTab.onclick = function() { switchTab(this, tabs.length); };
+           newTab.innerHTML = `
+               <span class="tab-title">New Tab</span>
+               <div class="tab-close" onclick="closeTab(event, this)">
+                   <svg viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>
+               </div>
+           `;
+           container.insertBefore(newTab, container.lastElementChild);
+           tabs.push({ title: 'New Tab', url: null });
+           switchTab(newTab, tabs.length - 1);
+       }
 
-        function newTabWithUrl(url) {
-            newTab();
-            tabs[activeTab].url = url;
-            updateTabTitle(activeTab, url);
-        }
+       function newTabWithUrl(url) {
+           newTab();
+           tabs[activeTab].url = url;
+           updateTabTitle(activeTab, url);
+       }
 
-        function switchTab(element, index) {
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            element.classList.add('active');
-            activeTab = index;
-            
-            if (tabs[index].url) {
-                document.getElementById('homescreen').style.display = 'none';
-                document.getElementById('app').style.display = 'block';
-                document.getElementById('urlInput').value = tabs[index].url;
-            } else {
-                showHomescreen();
-            }
-        }
+       function switchTab(element, index) {
+           document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+           element.classList.add('active');
+           activeTab = index;
+           
+           if (tabs[index].url) {
+               document.getElementById('homescreen').style.display = 'none';
+               document.getElementById('app').style.display = 'block';
+               document.getElementById('urlInput').value = tabs[index].url;
+           } else {
+               showHomescreen();
+           }
+       }
 
-        function closeTab(e, element) {
-            e.stopPropagation();
-            const tab = element.parentElement;
-            const index = Array.from(document.querySelectorAll('.tab')).indexOf(tab);
-            
-            if (document.querySelectorAll('.tab').length > 1) {
-                tab.remove();
-                tabs.splice(index, 1);
-                if (activeTab === index) {
-                    const newTabs = document.querySelectorAll('.tab');
-                    if (newTabs.length > 0) {
-                        const newIndex = Math.min(index, newTabs.length - 1);
-                        switchTab(newTabs[newIndex], newIndex);
-                    }
-                } else if (activeTab > index) {
-                    activeTab--;
-                }
-            }
-        }
+       function closeTab(e, element) {
+           e.stopPropagation();
+           const tab = element.parentElement;
+           const index = Array.from(document.querySelectorAll('.tab')).indexOf(tab);
+           
+           if (document.querySelectorAll('.tab').length > 1) {
+               tab.remove();
+               tabs.splice(index, 1);
+               if (activeTab === index) {
+                   const newTabs = document.querySelectorAll('.tab');
+                   if (newTabs.length > 0) {
+                       const newIndex = Math.min(index, newTabs.length - 1);
+                       switchTab(newTabs[newIndex], newIndex);
+                   }
+               } else if (activeTab > index) {
+                   activeTab--;
+               }
+           }
+       }
 
-        function updateTabTitle(index, url) {
-            const tabs = document.querySelectorAll('.tab');
-            if (tabs[index]) {
-                const title = url === null ? 'Home' : url.replace(/^https?:\/\//, '').split('/')[0];
-                tabs[index].querySelector('.tab-title').textContent = title;
-            }
-        }
+       function updateTabTitle(index, url) {
+           const tabs = document.querySelectorAll('.tab');
+           if (tabs[index]) {
+               const title = url === null ? 'Home' : url.replace(/^https?:\/\//, '').split('/')[0];
+               tabs[index].querySelector('.tab-title').textContent = title;
+           }
+       }
 
-        function goBack() {
-            console.log('Back');
-        }
+       function goBack() {
+           console.log('Back');
+       }
 
-        function goForward() {
-            console.log('Forward');
-        }
+       function goForward() {
+           console.log('Forward');
+       }
 
-        function reload() {
-            console.log('Reload');
-        }
-    </script>
-    <script src="ui.js"></script>
+       function reload() {
+           console.log('Reload');
+       }
+   </script>
+   <script src="ui.js"></script>
 </body>
 </html>
